@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+/* ---------- Design tokens (same palette as the original HTML version) ---------- */
+@theme {
+  --color-cream: #fbf6ed;
+  --color-paper: #fffdf8;
+  --color-espresso: #41382c;
+  --color-cocoa: #8a6f58;
+  --color-latte: #ebdcc9;
+  --color-latte-deep: #d9c3a8;
+  --color-sage: #7fa37a;
+  --color-sage-soft: #dde8d6;
+  --color-sky: #6f9fc4;
+  --color-sky-soft: #ddeaf3;
+  --color-peach: #f2be93;
+  --color-peach-soft: #fbe9d7;
+  --color-pink-soft: #f7e0da;
+  --color-ink-soft: #6e6353;
+
+  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-hand: "Caveat", cursive;
+
+  --shadow-card: 0 10px 30px rgba(65, 56, 44, 0.1);
+  --shadow-pop: 0 18px 44px rgba(65, 56, 44, 0.16);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream font-body text-espresso antialiased overflow-x-hidden;
+  }
+  ::selection {
+    @apply bg-sage-soft text-espresso;
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 3px solid var(--color-sky);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-app {
+    @apply mx-auto w-[min(1060px,calc(100%-40px))];
+  }
+  .eyebrow {
+    @apply inline-flex -rotate-[1.5deg] items-center gap-2 rounded-full border-[1.5px] border-latte bg-paper px-4 py-[7px] text-[0.8rem] font-extrabold uppercase tracking-[0.12em] text-cocoa;
+  }
+  .hand {
+    font-family: var(--font-hand);
+    font-size: 1.35rem;
+    color: var(--color-cocoa);
+  }
+  .hl {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+    z-index: 1;
+  }
+  .hl::after {
+    content: "";
+    position: absolute;
+    left: -4px;
+    right: -4px;
+    bottom: 4px;
+    height: 38%;
+    background: var(--color-peach);
+    opacity: 0.55;
+    z-index: -1;
+    border-radius: 6px;
+    transform: rotate(-1deg);
+  }
+  .hl-sage::after {
+    background: var(--color-sage);
+    opacity: 0.4;
+  }
+  .hl-sky::after {
+    background: var(--color-sky);
+    opacity: 0.4;
+  }
+  .tape {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    width: 96px;
+    height: 28px;
+    border-radius: 4px;
+    transform: translateX(-50%) rotate(-3deg);
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(127, 163, 122, 0.45),
+      rgba(127, 163, 122, 0.45) 8px,
+      rgba(127, 163, 122, 0.3) 8px,
+      rgba(127, 163, 122, 0.3) 16px
+    );
+    box-shadow: 0 2px 5px rgba(65, 56, 44, 0.12);
+  }
+  .tape-sky {
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(111, 159, 196, 0.45),
+      rgba(111, 159, 196, 0.45) 8px,
+      rgba(111, 159, 196, 0.3) 8px,
+      rgba(111, 159, 196, 0.3) 16px
+    );
+  }
+  .tape-peach {
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(242, 190, 147, 0.6),
+      rgba(242, 190, 147, 0.6) 8px,
+      rgba(242, 190, 147, 0.42) 8px,
+      rgba(242, 190, 147, 0.42) 16px
+    );
+  }
+}
+
+/* ---------- Ambient CSS keyframes (non-interactive atmosphere only).
+     Interactive motion lives in Framer Motion. ---------- */
+@keyframes drift {
+  from {
+    translate: 0 0;
+    scale: 1;
+  }
+  to {
+    translate: 50px 40px;
+    scale: 1.12;
+  }
+}
+@keyframes blob-morph {
+  0%,
+  100% {
+    border-radius: 46% 54% 52% 48% / 48% 46% 54% 52%;
+  }
+  50% {
+    border-radius: 54% 46% 48% 52% / 52% 54% 46% 48%;
+  }
+}
+@keyframes float-y {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes wheel {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes confetti-fall {
+  to {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.4;
+  }
+}
+
+.anim-drift {
+  animation: drift 18s ease-in-out infinite alternate;
+}
+.anim-drift-rev {
+  animation: drift 22s ease-in-out infinite alternate-reverse;
+}
+.anim-drift-slow {
+  animation: drift 26s ease-in-out infinite alternate;
+}
+.anim-blob {
+  animation: blob-morph 9s ease-in-out infinite, float-y 6s ease-in-out infinite;
+}
+.anim-float {
+  animation: float-y 5s ease-in-out infinite;
+}
+.anim-float-rev {
+  animation: float-y 6s ease-in-out infinite reverse;
+}
+.anim-marquee {
+  animation: marquee-scroll 26s linear infinite;
+}
+.group-marquee:hover .anim-marquee {
+  animation-play-state: paused;
+}
+.mouse-wheel::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 50%;
+  width: 4px;
+  height: 8px;
+  margin-left: -2px;
+  border-radius: 4px;
+  background: var(--color-sage);
+  animation: wheel 1.6s ease-in-out infinite;
+}
+.confetti-bit {
+  position: fixed;
+  top: -20px;
+  z-index: 8000;
+  pointer-events: none;
+  animation: confetti-fall linear forwards;
+}
