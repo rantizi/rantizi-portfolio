@@ -14,6 +14,7 @@ import Experience from "./components/Experience";
 import Achievements from "./components/Achievements";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ProjectsPage from "./components/ProjectsPage";
 
 import { ToastProvider, useToast } from "./components/ui/Toast";
 import useKonami from "./hooks/useKonami";
@@ -60,10 +61,12 @@ function Page() {
 }
 
 export default function App() {
+  const isProjectsPage = window.location.pathname.replace(/\/$/, "") === "/projects";
+
   return (
     <MotionConfig reducedMotion="user">
       <ToastProvider>
-        <Page />
+        {isProjectsPage ? <ProjectsPage /> : <Page />}
       </ToastProvider>
     </MotionConfig>
   );
