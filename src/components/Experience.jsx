@@ -11,10 +11,10 @@ export default function Experience() {
           eyebrow="🧭 Experience"
           title={
             <>
-              Where I've <span className="hl hl-sage">learned by doing</span>
+              Where I've <span className="hl hl-sage">learned by building</span>
             </>
           }
-          sub="Campus roles and team projects where the real lessons happened."
+          sub="A mix of real client work, internship projects, data analysis training, and cloud learning - the places where the messy parts turned into actual skills."
         />
         <div className="relative ml-2.5 pl-9">
           {/* The gradient spine */}
@@ -34,13 +34,34 @@ export default function Experience() {
               <motion.div
                 whileHover={{ x: 8, rotate: 0.4 }}
                 data-cursor
-                className="max-w-[640px] rounded-[18px] border-[1.5px] border-latte bg-paper px-6 py-5 shadow-card"
+                className="max-w-[720px] rounded-[18px] border-[1.5px] border-latte bg-paper px-6 py-5 shadow-card"
               >
                 <span className="text-[0.76rem] font-extrabold uppercase tracking-[0.1em] text-cocoa">
-                  {item.when}
+                  {item.when} · {item.type}
                 </span>
-                <h3 className="mb-1.5 mt-1 font-display text-[1.12rem] font-extrabold">{item.title}</h3>
-                <p className="text-[0.9rem] text-ink-soft">{item.desc}</p>
+                <h3 className="mb-1.5 mt-1 font-display text-[1.12rem] font-extrabold">
+                  <span className="mr-2">{item.icon}</span>
+                  {item.title}
+                </h3>
+                <p className="mb-3 text-[0.9rem] text-ink-soft">{item.desc}</p>
+                <ul className="mb-4 space-y-2 text-[0.84rem] text-ink-soft">
+                  {item.bullets.map((bullet) => (
+                    <li key={bullet} className="flex gap-2">
+                      <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-sage" aria-hidden="true" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex flex-wrap gap-2">
+                  {item.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border-[1.5px] border-latte-deep bg-cream px-3 py-1 text-[0.72rem] font-extrabold tracking-[0.04em]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               </motion.div>
             </Reveal>
           ))}
