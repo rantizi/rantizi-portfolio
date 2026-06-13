@@ -1,7 +1,29 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "./ui/Reveal";
 import SectionHeading from "./ui/SectionHeading";
-import { FACTS } from "../data/content";
+import { FACTS, PROFILE } from "../data/content";
+
+function ProfilePhoto({ src }) {
+  const [failed, setFailed] = useState(false);
+  const showImage = src && !failed;
+
+  return (
+    <div className="mx-auto mb-[22px] flex h-40 w-40 items-center justify-center overflow-hidden rounded-[40px] border-[1.5px] border-latte bg-sky-soft text-[4.4rem] md:h-44 md:w-44">
+      {showImage ? (
+        <img
+          src={src}
+          alt="Portrait of Abdul Aziz Rantizi"
+          loading="lazy"
+          onError={() => setFailed(true)}
+          className="h-full w-full object-cover"
+        />
+      ) : (
+        <span aria-hidden="true">🧑‍💻</span>
+      )}
+    </div>
+  );
+}
 
 export default function About() {
   return (
@@ -25,9 +47,7 @@ export default function About() {
               className="relative rounded-[28px] border-[1.5px] border-latte bg-paper px-[30px] pb-[30px] pt-9 shadow-card"
             >
               <span className="tape" aria-hidden="true" />
-              <div className="mb-[18px] flex size-24 items-center justify-center rounded-[30px] bg-sky-soft text-[3.4rem]">
-                🧑‍💻
-              </div>
+              <ProfilePhoto src={PROFILE.image} />
               <h3 className="font-display text-[1.3rem] font-extrabold">Abdul Aziz Rantizi</h3>
               <p className="text-[0.9rem] text-ink-soft">
                 Computer Science student · Data analysis, software development &amp; general IT
@@ -52,18 +72,21 @@ export default function About() {
             <Reveal delay={0.1}>
               <p className="mb-4 text-ink-soft">
                 On the software side, I build with{" "}
-                <strong className="text-espresso">Python, SQL, C++, and Java</strong>, and I'm comfortable
-                being the person who keeps a group project organized: tasks, timelines, and making sure
-                nobody pushes to main at 2 AM untested. (Mostly.)
+                <strong className="text-espresso">
+                  Python, SQL, C++, JavaScript, TypeScript, and Java
+                </strong>
+                , and I'm comfortable being the person who keeps a group project organized: tasks,
+                timelines, documentation, and making sure nobody pushes to main at 2 AM untested.
+                (Mostly.)
               </p>
             </Reveal>
-            <div className="mt-6 grid gap-3.5 sm:grid-cols-2">
+            <div className="mt-6 grid auto-rows-fr items-stretch gap-3.5 sm:grid-cols-2">
               {FACTS.map((fact, i) => (
-                <Reveal key={fact.title} delay={0.15 + i * 0.05}>
+                <Reveal key={fact.title} delay={0.15 + i * 0.05} className="h-full">
                   <motion.div
                     whileHover={{ y: -4, rotate: -1 }}
                     data-cursor
-                    className="rounded-[18px] border-[1.5px] border-latte bg-paper px-[18px] py-4 transition-colors hover:border-sage"
+                    className="flex h-full flex-col justify-center rounded-[18px] border-[1.5px] border-latte bg-paper px-[18px] py-4 transition-colors hover:border-sage"
                   >
                     <b className="mb-0.5 block text-[0.95rem]">
                       {fact.icon} {fact.title}

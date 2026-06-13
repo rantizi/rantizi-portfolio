@@ -13,6 +13,7 @@ export default function Navbar() {
   const active = useActiveSection(SECTION_IDS);
   const toast = useToast();
   const logoClicks = useRef(0);
+  const isProjectsPage = window.location.pathname.replace(/\/$/, "") === "/projects";
 
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
@@ -54,9 +55,9 @@ export default function Navbar() {
         {NAV_LINKS.map((link) => (
           <a
             key={link.id}
-            href={`#${link.id}`}
+            href={isProjectsPage ? `/#${link.id}` : `#${link.id}`}
             className={`rounded-full px-3.5 py-2 text-[0.86rem] font-semibold transition-colors duration-200 ${
-              active === link.id
+              !isProjectsPage && active === link.id
                 ? "bg-espresso text-cream"
                 : "text-ink-soft hover:bg-sage-soft hover:text-espresso"
             }`}
@@ -98,7 +99,7 @@ export default function Navbar() {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.id}
-                href={`#${link.id}`}
+                href={isProjectsPage ? `/#${link.id}` : `#${link.id}`}
                 onClick={() => setOpen(false)}
                 className="rounded-full px-3.5 py-2.5 text-center text-[0.92rem] font-semibold text-ink-soft hover:bg-sage-soft hover:text-espresso"
               >

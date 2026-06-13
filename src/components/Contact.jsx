@@ -19,8 +19,8 @@ export default function Contact() {
                 Let's build something <span className="hl">tidy</span> together
               </h2>
               <p className="mx-auto mb-8 max-w-[460px] text-ink-soft">
-                Open to internships, data projects, team collaborations, or just a friendly chat about why
-                your spreadsheet broke.
+                Open to internships, freelance projects, collaborations, or a friendly chat about data,
+                dashboards, and web apps.
               </p>
               <div className="mb-6 flex flex-wrap justify-center gap-3.5">
                 <PrimaryButton href={`mailto:${CONTACT.email}`}>📨 Email me</PrimaryButton>
@@ -31,6 +31,8 @@ export default function Contact() {
                   <motion.a
                     key={social.label}
                     href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
                     aria-label={social.label}
                     whileHover={{ y: -3, rotate: -2 }}
                     className="rounded-full border-2 border-latte-deep bg-cream px-[18px] py-2 text-[0.88rem] font-bold transition-colors hover:border-sky hover:bg-sky-soft"
