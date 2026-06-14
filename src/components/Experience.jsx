@@ -26,15 +26,16 @@ export default function Experience() {
             className="absolute bottom-2 left-0 top-2 w-[3px] origin-top rounded bg-linear-to-b from-sage via-sky to-peach"
           />
           {TIMELINE.map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.1} className="group relative pb-9 last:pb-0">
+            <Reveal key={item.title} delay={i * 0.1} className="experience-item group relative pb-9 last:pb-0">
               <span
                 aria-hidden="true"
-                className={`absolute -left-[43px] top-1.5 size-[17px] rounded-full border-4 bg-paper transition-transform duration-300 group-hover:scale-[1.35] ${item.dot}`}
+                className={`experience-dot absolute -left-[43px] top-1.5 size-[17px] rounded-full border-4 bg-paper ${item.dot}`}
               />
               <motion.div
-                whileHover={{ x: 8, rotate: 0.4 }}
                 data-cursor
-                className="max-w-[720px] rounded-[18px] border-[1.5px] border-latte bg-paper px-6 py-5 shadow-card"
+                tabIndex={0}
+                aria-label={`${item.title} experience card`}
+                className="experience-card max-w-[720px] rounded-[18px] border-[1.5px] border-latte bg-paper px-6 py-5 shadow-card focus-visible:outline-[3px] focus-visible:outline-offset-[4px] focus-visible:outline-sky"
               >
                 <span className="text-[0.76rem] font-extrabold uppercase tracking-[0.1em] text-cocoa">
                   {item.when} · {item.type}
@@ -52,15 +53,24 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border-[1.5px] border-latte-deep bg-cream px-3 py-1 text-[0.72rem] font-extrabold tracking-[0.04em]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div className="experience-tools">
+                  <span
+                    aria-hidden="true"
+                    className="mb-1.5 block font-hand text-[1rem] font-bold text-cocoa"
+                  >
+                    tools picked up &#8594;
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.map((tag, tagIndex) => (
+                      <span
+                        key={tag}
+                        style={{ transitionDelay: `${Math.min(tagIndex, 5) * 35}ms` }}
+                        className="experience-tool-chip rounded-full border-[1.5px] border-latte-deep bg-cream px-3 py-1 text-[0.72rem] font-extrabold tracking-[0.04em]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             </Reveal>

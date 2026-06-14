@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useInView } from "framer-motion";
+import { AnimatePresence, animate, motion, useInView } from "framer-motion";
 import Reveal, { EASE_OUT } from "./ui/Reveal";
 import SectionHeading from "./ui/SectionHeading";
 import { CERTIFICATES, STATS } from "../data/content";
@@ -25,14 +25,22 @@ function Counter({ to }) {
 
 function CertificateImage({ certificate }) {
   const [failed, setFailed] = useState(false);
-  const hasImage = certificate.image && !failed;
+  const imageSrc = certificate.image?.trim();
+  const hasImage = Boolean(imageSrc) && !failed;
+
+  useEffect(() => {
+    setFailed(false);
+  }, [imageSrc]);
 
   return (
-    <div className="mb-4 overflow-hidden rounded-[16px] border-[1.5px] border-latte bg-cream">
-      {hasImage ? (
+    <div className="certificate-folder relative mb-4 overflow-visible">
+      <span aria-hidden="true" className="certificate-folder-tab" />
+      <span aria-hidden="true" className="certificate-folder-base" />
+      <div className="certificate-document relative z-10 overflow-hidden rounded-[16px] border-[1.5px] border-latte bg-cream">
+        {hasImage ? (
         <img
-          src={certificate.image}
-          alt={`${certificate.title} from ${certificate.issuer}`}
+          src={imageSrc}
+          alt={`${certificate.title} certificate`}
           loading="lazy"
           onError={() => setFailed(true)}
           className="aspect-[16/10] w-full object-cover"
@@ -45,13 +53,63 @@ function CertificateImage({ certificate }) {
             <p className="mt-1 text-[0.76rem] font-semibold text-cocoa">Still counted, still tidy.</p>
           </div>
         </div>
-      )}
+        )}
+      </div>
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute right-3 top-3 z-20 rotate-3 scale-95 rounded-full border-[1.5px] border-sage bg-paper/95 px-3 py-1 font-display text-[0.72rem] font-extrabold text-cocoa opacity-0 shadow-card transition duration-300 ease-out group-hover:rotate-[-2deg] group-hover:scale-100 group-hover:opacity-100 group-focus-within:rotate-[-2deg] group-focus-within:scale-100 group-focus-within:opacity-100"
+      >
+        Proof kept &#10022;
+      </span>
     </div>
   );
 }
 
+function CertificateCard({ certificate }) {
+  return (
+    <motion.article
+      data-cursor
+      className="certificate-card group h-full rounded-[22px] border-[1.5px] border-latte bg-paper px-[22px] pb-[22px] pt-[26px] shadow-card transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-[5px] hover:border-sage focus-within:-translate-y-[5px] focus-within:border-sage focus-within:shadow-pop"
+    >
+      <CertificateImage certificate={certificate} />
+      <div className="mb-2 flex flex-wrap items-center gap-2">
+        <h3 className="font-display text-[1.05rem] font-extrabold">{certificate.title}</h3>
+        <span className="rounded-full border-[1.5px] border-latte-deep bg-cream px-2.5 py-0.5 text-[0.68rem] font-extrabold text-cocoa">
+          {certificate.year}
+        </span>
+      </div>
+      <p className="mb-1 text-[0.82rem] font-bold text-cocoa">{certificate.issuer}</p>
+      <p className="mb-3 text-[0.85rem] text-ink-soft">{certificate.desc}</p>
+      <div className="certificate-tags flex flex-wrap gap-2">
+        {certificate.tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded-full border-[1.5px] border-latte-deep bg-cream px-3 py-1 text-[0.72rem] font-extrabold tracking-[0.04em]"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+      {certificate.credentialUrl && (
+        <motion.a
+          href={certificate.credentialUrl}
+          target="_blank"
+          rel="noreferrer"
+          whileHover={{ y: -2, rotate: -1 }}
+          className="mt-4 inline-flex rounded-full bg-espresso px-4 py-2 text-[0.78rem] font-extrabold text-cream"
+        >
+          View credential
+        </motion.a>
+      )}
+    </motion.article>
+  );
+}
+
 export default function Achievements() {
-  const featuredCertificates = CERTIFICATES.filter((certificate) => certificate.featured);
+  const [showMoreCertificates, setShowMoreCertificates] = useState(false);
+  const featuredCertificates = CERTIFICATES.filter((certificate) => certificate.featured === true);
+  const extraCertificates = CERTIFICATES.filter((certificate) => certificate.featured !== true);
+  const extraCertificatesId = "extra-certificates";
 
   return (
     <section id="certificates" className="pb-[30px] pt-20 lg:pt-[110px]">
@@ -91,45 +149,47 @@ export default function Achievements() {
         <div className="grid gap-5 md:grid-cols-2">
           {featuredCertificates.map((certificate, i) => (
             <Reveal key={certificate.title} delay={i * 0.1}>
-              <motion.article
-                whileHover={{ y: -5, rotate: i % 2 === 0 ? -0.6 : 0.6 }}
-                data-cursor
-                className="h-full rounded-[22px] border-[1.5px] border-latte bg-paper px-[22px] pb-[22px] pt-[26px] shadow-card"
-              >
-                <CertificateImage certificate={certificate} />
-                <div className="mb-2 flex flex-wrap items-center gap-2">
-                  <h3 className="font-display text-[1.05rem] font-extrabold">{certificate.title}</h3>
-                  <span className="rounded-full border-[1.5px] border-latte-deep bg-cream px-2.5 py-0.5 text-[0.68rem] font-extrabold text-cocoa">
-                    {certificate.year}
-                  </span>
-                </div>
-                <p className="mb-1 text-[0.82rem] font-bold text-cocoa">{certificate.issuer}</p>
-                <p className="mb-3 text-[0.85rem] text-ink-soft">{certificate.desc}</p>
-                <div className="flex flex-wrap gap-2">
-                  {certificate.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border-[1.5px] border-latte-deep bg-cream px-3 py-1 text-[0.72rem] font-extrabold tracking-[0.04em]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                {certificate.credentialUrl && (
-                  <motion.a
-                    href={certificate.credentialUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    whileHover={{ y: -2, rotate: -1 }}
-                    className="mt-4 inline-flex rounded-full bg-espresso px-4 py-2 text-[0.78rem] font-extrabold text-cream"
-                  >
-                    View credential
-                  </motion.a>
-                )}
-              </motion.article>
+              <CertificateCard certificate={certificate} />
             </Reveal>
           ))}
         </div>
+        {extraCertificates.length > 0 && (
+          <div className="mt-8 text-center">
+            <p className="mb-3 font-display text-[1.02rem] font-extrabold">
+              Still curious? I keep a few more learning receipts here.
+            </p>
+            <motion.button
+              type="button"
+              aria-expanded={showMoreCertificates}
+              aria-controls={extraCertificatesId}
+              onClick={() => setShowMoreCertificates((current) => !current)}
+              data-cursor
+              whileHover={{ y: -3, rotate: showMoreCertificates ? 1 : -1 }}
+              whileTap={{ scale: 0.96 }}
+              className="inline-flex rounded-full border-[1.5px] border-latte-deep bg-paper px-5 py-2.5 text-[0.84rem] font-extrabold text-espresso shadow-card transition-colors hover:border-sage hover:bg-sage-soft"
+            >
+              {showMoreCertificates ? "Hide extra certificates ↑" : "View more certificates →"}
+            </motion.button>
+          </div>
+        )}
+        <AnimatePresence initial={false}>
+          {showMoreCertificates && extraCertificates.length > 0 && (
+            <motion.div
+              id={extraCertificatesId}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.45, ease: EASE_OUT }}
+              className="overflow-hidden"
+            >
+              <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {extraCertificates.map((certificate, i) => (
+                  <CertificateCard key={certificate.title} certificate={certificate} />
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
