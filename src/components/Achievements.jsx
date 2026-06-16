@@ -42,6 +42,7 @@ function CertificateImage({ certificate }) {
           src={imageSrc}
           alt={`${certificate.title} certificate`}
           loading="lazy"
+          decoding="async"
           onError={() => setFailed(true)}
           className="aspect-[16/10] w-full object-cover"
         />

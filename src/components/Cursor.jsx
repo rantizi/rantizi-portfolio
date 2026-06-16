@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
 /**
@@ -9,6 +9,8 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 export default function Cursor() {
   const [enabled, setEnabled] = useState(false);
   const [hovering, setHovering] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const disabledRef = useRef(false);
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
@@ -20,23 +22,55 @@ export default function Cursor() {
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (!finePointer || reducedMotion) return;
 
+    const cursorDisabledClass = "custom-cursor-disabled";
+    const updateDisabled = () => {
+      const nextDisabled =
+        document.body.classList.contains(cursorDisabledClass) ||
+        document.documentElement.classList.contains(cursorDisabledClass);
+
+      disabledRef.current = nextDisabled;
+      setDisabled(nextDisabled);
+
+      if (nextDisabled) {
+        setHovering(false);
+        x.set(-100);
+        y.set(-100);
+      }
+    };
+
     setEnabled(true);
+    updateDisabled();
+
     const onMove = (e) => {
+      if (disabledRef.current) return;
+
       x.set(e.clientX);
       y.set(e.clientY);
     };
     const onOver = (e) => {
+      if (disabledRef.current) {
+        setHovering(false);
+        return;
+      }
+
       setHovering(!!e.target.closest("a, button, [data-cursor]"));
     };
+
+    const observer = new MutationObserver(updateDisabled);
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseover", onOver);
+
     return () => {
+      observer.disconnect();
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
     };
   }, [x, y]);
 
-  if (!enabled) return null;
+  if (!enabled || disabled) return null;
 
   return (
     <>

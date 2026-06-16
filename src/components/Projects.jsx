@@ -54,6 +54,23 @@ function useBodyScrollLock(locked) {
   }, [locked]);
 }
 
+function useCustomCursorDisabled(disabled) {
+  useEffect(() => {
+    if (!disabled || typeof document === "undefined") return undefined;
+
+    const className = "custom-cursor-disabled";
+    const { body, documentElement } = document;
+
+    body.classList.add(className);
+    documentElement.classList.add(className);
+
+    return () => {
+      body.classList.remove(className);
+      documentElement.classList.remove(className);
+    };
+  }, [disabled]);
+}
+
 /** 3D tilt that follows the cursor - springs instead of raw mousemove math. */
 function TiltCard({ children, className = "" }) {
   const ref = useRef(null);
@@ -98,6 +115,7 @@ function ProjectCover({ project }) {
           src={project.coverImage}
           alt={`${project.title} project screenshot`}
           loading="lazy"
+          decoding="async"
           onError={() => setFailed(true)}
           className="aspect-[16/10] w-full object-cover"
         />
@@ -129,6 +147,7 @@ function ProofImage({ src, alt, icon, label, className = "", imageClassName = "a
           src={src}
           alt={alt}
           loading="lazy"
+          decoding="async"
           onError={() => setFailed(true)}
           className={imageClassName}
         />
@@ -210,6 +229,8 @@ function ScreenshotLightbox({ project, images, index, onSelect, onClose }) {
             <img
               src={selectedImage}
               alt={`${project.title} screenshot ${index + 1}`}
+              loading="lazy"
+              decoding="async"
               onError={() => setFailed(true)}
               className="max-h-[76dvh] w-full object-contain"
             />
@@ -269,6 +290,7 @@ function ProjectProofModal({ project, onClose }) {
   };
 
   useBodyScrollLock(true);
+  useCustomCursorDisabled(true);
 
   useEffect(() => {
     const onKeyDown = (event) => {
