@@ -98,6 +98,7 @@ export const PROJECTS = [
     proud: "This project taught me how many small details an e-commerce flow needs before it feels reliable: stock, shipping, payment status, order confirmation, and the little UX moments in between.",
     demoUrl: "https://busana-arafah-web.vercel.app",
     githubUrl: "https://github.com/rantizi/busana-arafah-web",
+    filterGroup: "web",
     assetPath: "/assets/projects/busana-arafah/",
     coverImage: "/assets/projects/busana-arafah/cover.webp",
     images: [
@@ -124,6 +125,7 @@ export const PROJECTS = [
     proud: "The project made me think beyond just making pages and more about how users move from one step to another without getting confused.",
     demoUrl: "https://fromfram.vercel.app/",
     githubUrl: "https://github.com/deontmba/fromfram",
+    filterGroup: "web",
     assetPath: "/assets/projects/fromfram/",
     coverImage: "/assets/projects/fromfram/cover.webp",
     images: [
@@ -150,6 +152,7 @@ export const PROJECTS = [
     proud: "This project strengthened my data-meets-software mindset: a dashboard only looks simple when the data behind it has been carefully cleaned and shaped.",
     demoUrl: "",
     githubUrl: "",
+    filterGroup: "web",
     assetPath: "/assets/projects/infomedia-dashboard/",
     coverImage: "/assets/projects/infomedia-dashboard/cover.webp",
     images: [
@@ -176,6 +179,7 @@ export const PROJECTS = [
     proud: "This project is where the messy CSV to decision-ready dashboard pipeline became very real: less magic, more careful joins.",
     demoUrl: "https://datastudio.google.com/reporting/d7fe4039-20ee-4d70-baac-d4c7eb77218a",
     githubUrl: "https://github.com/rantizi/data-warehouse-shopee",
+    filterGroup: "dashboard",
     assetPath: "/assets/projects/data-warehouse-shopee/",
     coverImage: "/assets/projects/data-warehouse-shopee/cover.webp",
     images: [
@@ -202,6 +206,7 @@ export const PROJECTS = [
     proud: "This project made Excel feel less like just spreadsheets and more like a tiny analysis studio with slicers, charts, and satisfying filters.",
     demoUrl: "",
     githubUrl: "",
+    filterGroup: "dashboard",
     assetPath: "/assets/projects/clicked-ads-dashboard/",
     coverImage: "/assets/projects/clicked-ads-dashboard/cover.webp",
     images: [
@@ -228,6 +233,7 @@ export const PROJECTS = [
     proud: "This project was a good reminder that expensive house is not one variable: it is usually a messy little friendship between size, condition, location, and timing.",
     demoUrl: "",
     githubUrl: "",
+    filterGroup: "dashboard",
     assetPath: "/assets/projects/price-house-dashboard/",
     coverImage: "/assets/projects/price-house-dashboard/cover.webp",
     images: [
@@ -254,6 +260,7 @@ export const PROJECTS = [
     proud: "This project made me appreciate how fun data can become when it stops being rows and starts behaving like a connected story map.",
     demoUrl: "",
     githubUrl: "https://github.com/rantizi/lotr-semantic-web",
+    filterGroup: "web",
     assetPath: "/assets/projects/lotr-web/",
     coverImage: "/assets/projects/lotr-web/cover.webp",
     images: [
@@ -280,6 +287,7 @@ export const PROJECTS = [
     proud: "This project was a fun reminder that good interfaces are not always flat: sometimes the answer is a tiny 3D sugar cube appearing on your screen.",
     demoUrl: "",
     githubUrl: "https://github.com/deontmba/NutriLens",
+    filterGroup: "ar",
     assetPath: "/assets/projects/nutrilens/",
     coverImage: "/assets/projects/nutrilens/cover.webp",
     images: [
@@ -306,6 +314,7 @@ export const PROJECTS = [
     proud: "This was one of those projects that made OOP feel practical: classes were not just theory, they helped keep a real application from turning into spaghetti.",
     demoUrl: "",
     githubUrl: "",
+    filterGroup: "web",
     assetPath: "/assets/projects/apotek-order/",
     coverImage: "/assets/projects/apotek-order/cover.webp",
     images: [
@@ -321,7 +330,7 @@ export const PROJECTS = [
     tape: "tape tape-peach",
     title: "Gravion",
     year: "2024",
-    role: "Front-End Developer",
+    role: "Frontend Developer",
     category: "Web Application, Flight Booking UI",
     tech: ["PHP", "CSS", "JavaScript"],
     tags: ["PHP", "CSS", "JavaScript", "Frontend", "Booking Flow"],
@@ -332,6 +341,7 @@ export const PROJECTS = [
     proud: "This project helped me practice the basics that still matter everywhere: spacing, hierarchy, clear buttons, and making the next step obvious.",
     demoUrl: "",
     githubUrl: "",
+    filterGroup: "web",
     assetPath: "/assets/projects/gravion/",
     coverImage: "/assets/projects/gravion/cover.webp",
     images: [
@@ -536,6 +546,7 @@ export const CERTIFICATES = [
 export const CONTACT = {
   email: "abdulaziz.rantizi.id@gmail.com",
   socials: [
+    { label: "Resume", href: "/assets/resume/abdul-aziz-rantizi-resume.pdf" },
     { label: "GitHub", href: "https://github.com/rantizi" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/abdul-aziz-rantizi" },
     { label: "WhatsApp", href: "https://wa.me/6282128426108" },
