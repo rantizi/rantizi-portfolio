@@ -26,7 +26,7 @@ export default function Contact() {
                 <PrimaryButton href={`mailto:${CONTACT.email}`}>📨 Email me</PrimaryButton>
                 <GhostButton href="#home">Back to top ↑</GhostButton>
               </div>
-              <div className="flex justify-center gap-3">
+              <div className="mx-auto grid max-w-[340px] grid-cols-2 justify-items-center gap-3 sm:flex sm:max-w-none sm:flex-wrap sm:justify-center">
                 {CONTACT.socials.map((social) => (
                   <motion.a
                     key={social.label}
@@ -35,7 +35,7 @@ export default function Contact() {
                     rel="noreferrer"
                     aria-label={social.label}
                     whileHover={{ y: -3, rotate: -2 }}
-                    className="rounded-full border-2 border-latte-deep bg-cream px-[18px] py-2 text-[0.88rem] font-bold transition-colors hover:border-sky hover:bg-sky-soft"
+                    className="w-full max-w-[150px] rounded-full border-2 border-latte-deep bg-cream px-[18px] py-2 text-center text-[0.88rem] font-bold transition-colors hover:border-sky hover:bg-sky-soft sm:w-auto sm:max-w-none"
                   >
                     {social.label}
                   </motion.a>

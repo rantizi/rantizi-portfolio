@@ -34,7 +34,7 @@ function Page() {
   useEffect(() => {
     console.log("%c👋 Hey, fellow dev-tools explorer!", "font-size:16px;font-weight:bold;color:#7FA37A");
     console.log(
-      "%cThis is Aziz's portfolio — now running on React + Framer Motion. Try the Konami code 🎮",
+      "%cThis is Rantizi's portfolio — now running on React + Framer Motion. Try the Konami code 🎮",
       "color:#8A6F58"
     );
   }, []);
