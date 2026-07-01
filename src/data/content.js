@@ -96,7 +96,7 @@ export const PROJECTS = [
       "Busana Arafah is a full-stack e-commerce website for a family Muslim clothing store based in Tanah Abang, Jakarta. The site helps the store present products in a cleaner digital catalog while giving customers a smoother way to shop directly from the web.",
     did: "Built the customer shopping flow, admin features, database logic, payment and shipping integrations, email confirmation, SEO polish, and deployment pipeline.",
     proud: "This project taught me how many small details an e-commerce flow needs before it feels reliable: stock, shipping, payment status, order confirmation, and the little UX moments in between.",
-    demoUrl: "https://busana-arafah-web.vercel.app",
+    demoUrl: "https://busanaarafah.id/",
     githubUrl: "https://github.com/rantizi/busana-arafah-web",
     filterGroup: "web",
     assetPath: "/assets/projects/busana-arafah/",
@@ -360,7 +360,7 @@ export const TIMELINE = [
     title: "Full Stack Developer - Busana Arafah",
     role: "Full Stack Developer",
     company: "Busana Arafah",
-    type: "Client / Freelance Project",
+    type: "Freelance Project",
     desc: "Built a full-stack e-commerce website for a family Muslim fashion store from Tanah Abang, covering the customer shopping flow, admin stock tools, payment, shipping, email confirmation, SEO, and deployment.",
     bullets: [
       "Built the customer-facing e-commerce flow, including homepage, product catalog, cart, checkout, and order-checking page.",
@@ -544,7 +544,7 @@ export const CERTIFICATES = [
 ];
 
 export const CONTACT = {
-  email: "abdulaziz.rantizi.id@gmail.com",
+  email: "arantizi23@gmail.com",
   socials: [
     { label: "Resume", href: "/assets/resume/abdul-aziz-rantizi-resume.pdf" },
     { label: "GitHub", href: "https://github.com/rantizi" },
